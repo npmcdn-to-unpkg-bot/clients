@@ -3,6 +3,7 @@ export let CONFIG = {
     config: 'commands/config',
     resetDb: 'commands/resetDb',
     characters: 'api/characters.json',
-    vehicles: 'api/vehicles.json'
+    vehicles: 'api/vehicles.json',
+    clients: 'api/clients.json'
   }
 }

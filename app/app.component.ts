@@ -8,11 +8,16 @@ import { InMemoryStoryService } from '../api/in-memory-story.service';
 import { CharactersComponent, CharacterService } from './characters/characters';
 import { DashboardComponent } from './dashboard/dashboard';
 import { VehiclesComponent } from './vehicles/vehicles';
+
+import { ClientsComponent, ClientService } from './clients/clients';
+
+
 import { CONFIG, MessageService } from './shared/shared';
 import { EntityService, ExceptionService, ModalComponent, ModalService, SpinnerComponent, SpinnerService, ToastComponent, ToastService } from './blocks/blocks';
 
+
 @Component({
-  selector: 'story-app',
+  selector: 'clients-app',
   templateUrl: 'app/app.component.html',
   styleUrls: ['app/app.component.css'],
   directives: [ROUTER_DIRECTIVES, ModalComponent, SpinnerComponent, ToastComponent],
@@ -23,6 +28,7 @@ import { EntityService, ExceptionService, ModalComponent, ModalService, SpinnerC
     provide(InMemoryBackendConfig, { useValue: { delay: 600 } }),
     ROUTER_PROVIDERS,
     CharacterService,
+    ClientService,
     EntityService,
     ExceptionService,
     MessageService,
@@ -35,12 +41,14 @@ import { EntityService, ExceptionService, ModalComponent, ModalService, SpinnerC
   { path: '/dashboard', name: 'Dashboard', component: DashboardComponent, useAsDefault: true },
   { path: '/vehicles/...', name: 'Vehicles', component: VehiclesComponent },
   { path: '/characters/...', name: 'Characters', component: CharactersComponent },
+  { path: '/clients/...', name: 'Clients', component: ClientsComponent }
 ])
 export class AppComponent {
   public menuItems = [
     { caption: 'Dashboard', link: ['Dashboard'] },
     { caption: 'Characters', link: ['Characters'] },
-    { caption: 'Vehicles', link: ['Vehicles'] }
+    { caption: 'Vehicles', link: ['Vehicles'] },
+    { caption: 'Clients', link: ['Clients'] },
   ];
 
   constructor(

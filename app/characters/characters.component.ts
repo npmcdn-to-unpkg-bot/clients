@@ -18,3 +18,4 @@ import { CharacterService } from './character.service';
 	{ path: '/:id', name: 'Character', component: CharacterComponent }
 ])
 export class CharactersComponent { }
+
