@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "isActive" : true,
+      "title" : "Lab Art",
+      "contactPerson": "Kampilis Chris",
+      "mobile" : "6978542121",
+      "email" : "infos@labart.gr"
+    },
+    {
+      "id": 2,
+      "isActive" : true,
+      "title" : "Skate My",
+      "contactPerson": "Tsek Nik",
+      "mobile" : "58745121",
+      "email" : "infos@skatemy.com"
+    }
+  ]
+}
