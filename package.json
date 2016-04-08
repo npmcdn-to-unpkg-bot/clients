@@ -4,10 +4,17 @@
     "es6-shim": "^0.35.0",
     "reflect-metadata": "0.1.2",
     "rxjs": "5.0.0-beta.2",
-    "zone.js": "0.6.6"
+    "zone.js": "0.6.6",
+    "systemjs": "0.19.6"
   },
   "devDependencies": {
     "concurrently": "^2.0.0",
-    "lite-server": "^2.2.0"
+    "lite-server": "^2.2.0",
+    "a2-in-memory-web-api" : "*",
+    "typescript": "^1.7.3"
+  },
+  "scripts": {
+    "start": "npm run lite",
+    "lite": "lite-server"
   }
 }
