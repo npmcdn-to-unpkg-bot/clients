@@ -38,17 +38,17 @@ import { EntityService, ExceptionService, ModalComponent, ModalService, SpinnerC
   ]
 })
 @RouteConfig([
-  { path: '/dashboard', name: 'Dashboard', component: DashboardComponent, useAsDefault: true },
+  { path: '/clients/...', name: 'Clients', component: ClientsComponent, useAsDefault: true },
+  { path: '/dashboard', name: 'Dashboard', component: DashboardComponent},
   { path: '/vehicles/...', name: 'Vehicles', component: VehiclesComponent },
-  { path: '/characters/...', name: 'Characters', component: CharactersComponent },
-  { path: '/clients/...', name: 'Clients', component: ClientsComponent }
+  { path: '/characters/...', name: 'Characters', component: CharactersComponent }
 ])
 export class AppComponent {
   public menuItems = [
+    { caption: 'Clients', link: ['Clients'] },
     { caption: 'Dashboard', link: ['Dashboard'] },
     { caption: 'Characters', link: ['Characters'] },
-    { caption: 'Vehicles', link: ['Vehicles'] },
-    { caption: 'Clients', link: ['Clients'] },
+    { caption: 'Vehicles', link: ['Vehicles'] }
   ];
 
   constructor(
