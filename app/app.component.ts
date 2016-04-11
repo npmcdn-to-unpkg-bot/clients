@@ -16,6 +16,9 @@ import { CONFIG, MessageService } from './shared/shared';
 import { EntityService, ExceptionService, ModalComponent, ModalService, SpinnerComponent, SpinnerService, ToastComponent, ToastService } from './blocks/blocks';
 
 
+import { IhasId } from './core/core';
+
+
 @Component({
   selector: 'clients-app',
   templateUrl: 'app/app.component.html',
@@ -38,15 +41,15 @@ import { EntityService, ExceptionService, ModalComponent, ModalService, SpinnerC
   ]
 })
 @RouteConfig([
-  { path: '/clients/...', name: 'Clients', component: ClientsComponent, useAsDefault: true },
-  { path: '/dashboard', name: 'Dashboard', component: DashboardComponent},
+  { path: '/dashboard', name: 'Dashboard', component: DashboardComponent, useAsDefault: true},
+  { path: '/clients/...', name: 'Clients', component: ClientsComponent },
   { path: '/vehicles/...', name: 'Vehicles', component: VehiclesComponent },
   { path: '/characters/...', name: 'Characters', component: CharactersComponent }
 ])
 export class AppComponent {
   public menuItems = [
-    { caption: 'Clients', link: ['Clients'] },
     { caption: 'Dashboard', link: ['Dashboard'] },
+    { caption: 'Clients', link: ['Clients'] },
     { caption: 'Characters', link: ['Characters'] },
     { caption: 'Vehicles', link: ['Vehicles'] }
   ];

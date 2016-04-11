@@ -2,15 +2,16 @@ import { Component, OnDestroy, OnInit, ViewChild } from 'angular2/core';
 import { ROUTER_DIRECTIVES } from 'angular2/router';
 import { Observable, Subscription } from 'rxjs/Rx';
 
-import { Client, ClientService } from './client.service';
+import { ClientService } from './client.service';
+import { Client } from './client.interface';
 import { SortClientsPipe } from './sort-clients.pipe';
 import { FilterService, FilterTextComponent } from '../blocks/blocks';
 
 @Component({
-  selector: 'story-characters',
-  templateUrl: './app/characters/character-list.component.html',
+  selector: 'clients-list',
+  templateUrl: './app/clients/client-list.component.html',
   directives: [FilterTextComponent, ROUTER_DIRECTIVES],
-  styleUrls: ['./app/characters/character-list.component.css'],
+  styleUrls: ['./app/clients/client-list.component.css'],
   pipes: [SortClientsPipe],
   providers: [FilterService]
 })
@@ -21,17 +22,17 @@ export class ClientListComponent implements OnDestroy, OnInit {
   filteredClients = this.clients;
   @ViewChild(FilterTextComponent) filterComponent: FilterTextComponent;
 
-  constructor(private _characterService: ClientService,
+  constructor(private _clientService: ClientService,
     private _filterService: FilterService) { }
 
   filterChanged(searchText: string) {
-    this.filteredClients = this._filterService.filter(searchText, ['id', 'name'], this.clients);
+    this.filteredClients = this._filterService.filter(searchText, ['id', 'contactPerson'], this.clients);
   }
 
   getCharacters() {
     this.clients = [];
 
-    this._characterService.getClients()
+    this._clientService.getClients()
       .subscribe(clients => {
         this.clients = this.filteredClients = clients;
         this.filterComponent.clear();
@@ -45,7 +46,7 @@ export class ClientListComponent implements OnDestroy, OnInit {
   ngOnInit() {
     componentHandler.upgradeDom();
     this.getCharacters();
-    this._dbResetSubscription = this._characterService.onDbReset
+    this._dbResetSubscription = this._clientService.onDbReset
       .subscribe(() => this.getCharacters());
   }
 }

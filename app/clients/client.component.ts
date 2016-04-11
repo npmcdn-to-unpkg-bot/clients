@@ -3,19 +3,31 @@ import { CanDeactivate, ComponentInstruction, RouteParams, Router, ROUTER_DIRECT
 import { Observable, Subscription } from 'rxjs/Rx';
 
 import { EntityService, ModalService, ToastService } from '../blocks/blocks';
-import { Client, ClientService } from '../clients/client.service';
+import { ClientService } from './client.service';
+import { Client } from './client.interface';
+import { ClientVehiclesComponent } from './client-vehicles.component';
+
+import {Pipe, PipeTransform} from 'angular2/core'
 
 @Component({
-  selector: 'story-character',
+  selector: 'client',
   templateUrl: 'app/clients/client.component.html',
   styles: ['.mdl-textfield__label {top: 0;}'],
-  directives: [ROUTER_DIRECTIVES]
+  directives: [ClientVehiclesComponent, ROUTER_DIRECTIVES]
 })
+
+/*@Pipe({ name: 'values',  pure: false })
+export class ValuesPipe implements PipeTransform {
+  transform(value: any, args: any[] = null): any {
+    return Object.keys(value).map(key => value[key]);
+  }
+}*/
+
 export class ClientComponent implements CanDeactivate, OnDestroy, OnInit {
   private _dbResetSubscription: Subscription;
 
   @Input() client: Client;
-  editCharacter: Client = <Client>{};
+  editclient: Client = <Client>{};
 
   constructor(
     private _clientService: ClientService,
@@ -25,22 +37,24 @@ export class ClientComponent implements CanDeactivate, OnDestroy, OnInit {
     private _router: Router,
     private _toastService: ToastService) { }
 
+
+
   cancel(showToast = true) {
-    this.editCharacter = this._entityService.clone(this.client);
+    this.editclient = this._entityService.clone(this.client);
     if (showToast) {
-      this._toastService.activate(`Cancelled changes to ${this.client.name}`);
+      this._toastService.activate(`Cancelled changes to ${this.client.contactPerson}`);
     }
   }
 
   delete() {
-    let msg = `Do you want to delete ${this.client.name}?`;
+    let msg = `Do you want to delete ${this.client.contactPerson}?`;
     this._modalService.activate(msg).then(responseOK => {
       if (responseOK) {
         this.cancel(false);
-        this._clientService.deleteCharacter(this.client)
+        this._clientService.deleteClient(this.client)
           .subscribe(() => {
-            this._toastService.activate(`Deleted ${this.client.name}`);
-            this._gotoCharacters();
+            this._toastService.activate(`Deleted ${this.client.contactPerson}`);
+            this._gotoClients();
           });
       }
     });
@@ -57,45 +71,45 @@ export class ClientComponent implements CanDeactivate, OnDestroy, OnInit {
 
   ngOnInit() {
     componentHandler.upgradeDom();
-    this._getCharacter();
+    this._getClient();
     this._dbResetSubscription = this._clientService.onDbReset
-      .subscribe(() => this._getCharacter());
+      .subscribe(() => this._getClient());
   }
 
   routerCanDeactivate(next: ComponentInstruction, prev: ComponentInstruction) {
-    return !this.character ||
+    return !this.client ||
       !this._isDirty() ||
       this._modalService.activate();
   }
 
   save() {
-    let client = this.client = this._entityService.merge(this.client, this.editCharacter);
-    if (character.id == null) {
-      this._characterService.addCharacter(character)
+    let client = this.client = this._entityService.merge(this.client, this.editclient);
+    if (client.id == null) {
+      this._clientService.addClient(client)
         .subscribe(char => {
-          this._setEditCharacter(char);
+          this._setEditClient(char);
           this._toastService.activate(`Successfully added ${char.name}`);
-          this._gotoCharacters();
+          this._gotoClients();
         });
       return;
     }
-    this._characterService.updateCharacter(character)
-      .subscribe(() => this._toastService.activate(`Successfully saved ${character.name}`));
+    this._clientService.updateClient(client)
+      .subscribe(() => this._toastService.activate(`Successfully saved ${client.contactPerson}`));
   }
 
-  private _getCharacter() {
+  private _getClient() {
     let id = +this._routeParams.get('id');
     if (id === 0) return;
     if (this.isAddMode()) {
-      this.client = <Client>{ name: '', side: 'dark' };
-      this.editCharacter = this._entityService.clone(this.client);
+      this.client = <Client>{ contactPerson: '', email: 'dark' };
+      this.editclient = this._entityService.clone(this.client);
       return;
     }
-    this._characterService.getCharacter(id)
-      .subscribe(character => this._setEditCharacter(character));
+    this._clientService.getClient(id)
+      .subscribe(client => this._setEditClient(client));
   }
 
-  private _gotoCharacters() {
+  private _gotoClients() {
     let id = this.client ? this.client.id : null;
     let route = ['Clients', { id: id }];
     this._router.navigate(route);
@@ -106,15 +120,15 @@ export class ClientComponent implements CanDeactivate, OnDestroy, OnInit {
   }
 
   private _isDirty() {
-    return this._entityService.propertiesDiffer(this.client, this.editCharacter);
+    return this._entityService.propertiesDiffer(this.client, this.editclient);
   }
 
-  private _setEditCharacter(client: Client) {
+  private _setEditClient(client: Client) {
     if (client) {
       this.client = client;
-      this.editCharacter = this._entityService.clone(this.client);
+      this.editclient = this._entityService.clone(this.client);
     } else {
-      this._gotoCharacters();
+      this._gotoClients();
     }
   }
 }

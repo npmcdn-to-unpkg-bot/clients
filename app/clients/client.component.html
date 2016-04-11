@@ -1,17 +1,27 @@
 <article class="template animated slideInRight">
-  <div *ngIf="character">
-    <h4>{{editCharacter.name | uppercase}} details</h4>
+  <div *ngIf="client">
+    <h4>{{editclient.contactPerson | uppercase}} details</h4>
+
 
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
       <label class="mdl-textfield__label" for="nametext">Name</label>
-      <input type="text" id="nametext" class="mdl-textfield__input" [(ngModel)]="editCharacter.name" />
+      <input type="text" id="nametext" class="mdl-textfield__input" [(ngModel)]="editclient.contactPerson" />
     </div>
 
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-      <label class="mdl-textfield__label" for="sidetext">Side</label>
-      <input type="text" id="sidetext" class="mdl-textfield__input" [(ngModel)]="editCharacter.side" />
+      <label class="mdl-textfield__label" for="sidetext">Email</label>
+      <input type="text" id="sidetext" class="mdl-textfield__input" [(ngModel)]="editclient.email" />
     </div>
-
+    
+     <section>
+        <ul>
+            <li *ngFor="#v of editclient.vehicles">
+                {{v.id}} //  {{v.name}} // {{v.type}}
+            </li>
+        </ul>
+    </section>
+    
+    
     <div>
       <button class="dashboard-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
       mdl-button--accent" (click)="save()">Save</button>
@@ -22,5 +32,17 @@
       <button class="dashboard-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" (click)="delete()" [class.not-displayed]="isAddMode()">Delete</button>
     </div>
 
+  </div>
+</article>
+
+
+<article class="template animated slideInRight">
+  <div *ngIf="client">
+      <client-vehicles [vehicles]="editclient.vehicles" (changed)="filterChanged($event)></client-vehicles>
+      
+     
+      
+      
+      
   </div>
 </article>

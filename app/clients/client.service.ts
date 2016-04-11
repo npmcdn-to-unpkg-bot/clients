@@ -4,13 +4,11 @@ import { Observable } from 'rxjs/Rx';
 
 import { ExceptionService, SpinnerService } from '../blocks/blocks';
 import { CONFIG, MessageService } from '../shared/shared';
+import {Client} from './clients'
 
-let charactersUrl = CONFIG.baseUrls.clients;
+let clientsUrl = CONFIG.baseUrls.clients;
 
-export interface Client {
-  id: number;
-  name: string;
-}
+
 
 @Injectable()
 export class ClientService {
@@ -21,35 +19,35 @@ export class ClientService {
     this._messageService.state.subscribe(state => this.getClients());
   }
 
-  addCharacter(client: Client) {
+  addClient(client: Client) {
     let body = JSON.stringify(client);
     this._spinnerService.show();
     return this._http
-      .post(`${charactersUrl}`, body)
+      .post(`${clientsUrl}`, body)
       .map(res => res.json().data)
       .catch(this._exceptionService.catchBadResponse)
       .finally(() => this._spinnerService.hide());
   }
 
-  deleteCharacter(client: Client) {
+  deleteClient(client: Client) {
     this._spinnerService.show();
     return this._http
-      .delete(`${charactersUrl}/${client.id}`)
+      .delete(`${clientsUrl}/${client.id}`)
       .catch(this._exceptionService.catchBadResponse)
       .finally(() => this._spinnerService.hide());
   }
 
   getClients() {
     this._spinnerService.show();
-    return this._http.get(charactersUrl)
+    return this._http.get(clientsUrl)
       .map((response: Response) => <Client[]>response.json().data)
       .catch(this._exceptionService.catchBadResponse)
       .finally(() => this._spinnerService.hide());
   }
 
-  getCharacter(id: number) {
+  getClient(id: number) {
     this._spinnerService.show();
-    return this._http.get(`${charactersUrl}/${id}`)
+    return this._http.get(`${clientsUrl}/${id}`)
       .map((response: Response) => response.json().data)
       .catch(this._exceptionService.catchBadResponse)
       .finally(() => this._spinnerService.hide());
@@ -57,12 +55,12 @@ export class ClientService {
 
   onDbReset = this._messageService.state;
 
-  updateCharacter(client: Client) {
+  updateClient(client: Client) {
     let body = JSON.stringify(client);
     this._spinnerService.show();
 
     return this._http
-      .put(`${charactersUrl}/${client.id}`, body)
+      .put(`${clientsUrl}/${client.id}`, body)
       .catch(this._exceptionService.catchBadResponse)
       .finally(() => this._spinnerService.hide());
   }

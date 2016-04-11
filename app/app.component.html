@@ -3,7 +3,7 @@
     <div class="mdl-layout__header-row">
       <a class="md-title-icon" href="http://pluralsight.com" target="_blank"><i></i></a>
       <span class="mdl-layout-title">Client Handler</span>
-      <button id="reset-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent mdl-button--raised" (click)="resetDb()">Reset Data</button>
+      <button id="reset-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent mdl-button--raised" (click)="resetDb()"></button>
     </div>
     <div class="mdl-navigation">
       <a *ngFor="#item of menuItems" [routerLink]="item.link" class="nav-link" href="">{{item.caption}}</a>

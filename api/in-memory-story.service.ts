@@ -144,7 +144,64 @@ export class InMemoryStoryService {
         "type": "land"
       }
     ]
-
-    return { characters, vehicles };
+    
+    let clients = [
+        {
+            "id": 1,
+            "isActive" : true,
+            "title" : "Lab Art",
+            "contactPerson": "Kampilis Chris",
+            "mobile" : "6978542121",
+            "email" : "infos@labart.gr",
+            "vehicles" : [
+                {
+                "id": 30,
+                "name": "Millennium Falcon",
+                "type": "space"
+                },
+                {
+                "id": 31,
+                "name": "Y-Wing Fighter",
+                "type": "space"
+                },
+                {
+                "id": 32,
+                "name": "X-Wing Fighter",
+                "type": "space"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "isActive" : true,
+            "title" : "Skate My",
+            "contactPerson": "Tsek Nik",
+            "mobile" : "58745121",
+            "email" : "infos@skatemy.com",
+            "vehicles" : [
+               {
+                "id": 33,
+                "name": "Imperial Star Destroyer",
+                "type": "space"
+                },
+                {
+                "id": 34,
+                "name": "AT-AT Walker",
+                "type": "land"
+                },
+                {
+                "id": 35,
+                "name": "TIE Fighter",
+                "type": "space"
+                },
+                {
+                "id": 36,
+                "name": "B-Wing Fighter",
+                "type": "space"
+                }
+            ]
+        }
+    ];
+    return { characters, vehicles, clients };
   }
 }

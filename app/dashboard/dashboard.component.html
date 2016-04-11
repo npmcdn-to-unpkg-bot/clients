@@ -1,14 +1,14 @@
 <article class="template animated slideInRight">
-  <h4>Top Characters</h4>
+  <h4>Top Clients</h4>
   <div>
     <div class="mdl-grid">
       <div class="mdl-cell mdl-cell--3-col"
-        *ngFor="#character of characters | async"
-        (click)="gotoDetail(character)">
+        *ngFor="#client of clients | async"
+        (click)="gotoDetail(client)">
 
         <button class="dashboard-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
       mdl-button--accent">
-          {{character.name}}
+          {{client.contactPerson}}
         </button>
 
       </div>

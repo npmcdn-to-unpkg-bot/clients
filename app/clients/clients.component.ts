@@ -7,14 +7,12 @@ import { ClientService } from './client.service';
 
 @Component({
   selector: 'clients-root',
-  template: `
-    <router-outlet></router-outlet>
-  `,
+  template: "<router-outlet></router-outlet>",
   directives: [ROUTER_DIRECTIVES]
 })
 
 @RouteConfig([
-  { path: '/', name: 'Clients', component: ClientListComponent, useAsDefault: true },
+    { path: '/', name: 'Clients', component: ClientListComponent, useAsDefault: true },
 	{ path: '/list/:id', name: 'Clients', component: ClientListComponent	},
 	{ path: '/:id', name: 'Client', component: ClientComponent }
 ])

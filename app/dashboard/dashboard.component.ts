@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from 'angular2/core';
 import { Router } from 'angular2/router';
 import { Observable, Subscription } from 'rxjs/Rx';
 
-import { Character, CharacterService } from '../characters/characters';
+import { Client, ClientService } from '../clients/clients';
 import { ToastService } from '../blocks/blocks';
 
 @Component({
@@ -13,16 +13,16 @@ import { ToastService } from '../blocks/blocks';
 export class DashboardComponent implements OnDestroy, OnInit {
   private _dbResetSubscription: Subscription;
 
-  characters: Observable<Character[]>;
+  clients: Observable<Client[]>;
 
   constructor(
-    private _characterService: CharacterService,
+    private _clientService: ClientService,
     private _router: Router,
     private _toastService: ToastService) { }
 
-  getCharacters() {
+  getClients() {
     // this._spinnerService.show();
-    this.characters = this._characterService.getCharacters()
+    this.clients = this._clientService.getClients()
       .catch(e => {
         this._toastService.activate(`${e}`);
         return Observable.of();
@@ -30,8 +30,8 @@ export class DashboardComponent implements OnDestroy, OnInit {
       // .finally(() => { this._spinnerService.hide(); })
   }
 
-  gotoDetail(character: Character) {
-    let link = ['Characters', 'Character', { id: character.id }];
+  gotoDetail(client: Client) {
+    let link = ['Clients', 'Client', { id: client.id }];
     this._router.navigate(link);
   }
 
@@ -40,8 +40,8 @@ export class DashboardComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
-    this.getCharacters();
-    this._dbResetSubscription = this._characterService.onDbReset
-      .subscribe(() => this.getCharacters());
+    this.getClients();
+    this._dbResetSubscription = this._clientService.onDbReset
+      .subscribe(() => this.getClients());
   }
 }
